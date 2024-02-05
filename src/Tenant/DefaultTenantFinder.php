@@ -5,13 +5,13 @@
  *
  * This class is responsible for identifying the tenant based on the incoming HTTP request, particularly by analyzing the subdomain from the host. If a matching tenant is found, its ID is returned to be used for setting the tenant's database connection.
  *
- * @package Ananiaslitz\Matrix\Tenant
+ * @package OpenCodeCo\Matrix\Tenant
  */
-namespace Ananiaslitz\Matrix\Tenant;
+namespace OpenCodeCo\Matrix\Tenant;
 
 use Hyperf\HttpServer\Contract\RequestInterface;
-use Ananiaslitz\Matrix\Exceptions\TenantNotFoundException;
-use Ananiaslitz\Matrix\Model\Tenant;
+use OpenCodeCo\Matrix\Exceptions\TenantNotFoundException;
+use OpenCodeCo\Matrix\Model\Tenant;
 use Psr\Http\Message\ServerRequestInterface;
 
 class DefaultTenantFinder implements TenantFinderInterface

@@ -1,6 +1,6 @@
 <?php
 
-namespace Ananiaslitz\Matrix\Model\Traits;
+namespace OpenCodeCo\Matrix\Model\Traits;
 
 trait UsesWardenConnection
 {

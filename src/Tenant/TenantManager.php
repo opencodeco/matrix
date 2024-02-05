@@ -5,14 +5,14 @@
  *
  * The TenantManager class is responsible for handling tenant-specific database connections in a multi-tenant application. It provides methods for setting the database connection dynamically based on the tenant's details, reconnecting to the tenant's database, and retrieving tenant connection details.
  *
- * @package Ananiaslitz\Matrix\Tenant
+ * @package OpenCodeCo\Matrix\Tenant
  */
-namespace Ananiaslitz\Matrix\Tenant;
+namespace OpenCodeCo\Matrix\Tenant;
 
 use Hyperf\Contract\ConfigInterface;
 use Hyperf\Database\ConnectionResolverInterface;
-use Ananiaslitz\Matrix\Exceptions\TenantNotFoundException;
-use Ananiaslitz\Matrix\Model\Tenant;
+use OpenCodeCo\Matrix\Exceptions\TenantNotFoundException;
+use OpenCodeCo\Matrix\Model\Tenant;
 
 class TenantManager
 {

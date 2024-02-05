@@ -1,9 +1,9 @@
 <?php
 
-namespace Ananiaslitz\Matrix\Model;
+namespace OpenCodeCo\Matrix\Model;
 
 use Hyperf\Database\Model\Model;
-use Ananiaslitz\Matrix\Model\Traits\UsesWardenConnection;
+use OpenCodeCo\Matrix\Model\Traits\UsesWardenConnection;
 
 class Tenant extends Model
 {

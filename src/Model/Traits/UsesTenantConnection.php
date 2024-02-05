@@ -1,8 +1,8 @@
 <?php
 
-namespace Ananiaslitz\Matrix\Model\Traits;
+namespace OpenCodeCo\Matrix\Model\Traits;
 
-use Ananiaslitz\Matrix\Tenant\TenantManager;
+use OpenCodeCo\Matrix\Tenant\TenantManager;
 
 trait UsesTenantConnection
 {

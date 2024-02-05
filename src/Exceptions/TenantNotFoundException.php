@@ -5,9 +5,9 @@
  *
  * This exception is thrown when a requested tenant cannot be found, typically used within a multi-tenant application to handle cases where a specific tenant is not available or does not exist.
  *
- * @package Ananiaslitz\Matrix\Exceptions
+ * @package OpenCodeCo\Matrix\Exceptions
  */
-namespace Ananiaslitz\Matrix\Exceptions;
+namespace OpenCodeCo\Matrix\Exceptions;
 
 class TenantNotFoundException extends \Exception implements \Throwable
 {

@@ -5,9 +5,9 @@
  *
  * This interface outlines the contract that tenant finder implementations must adhere to. Tenant finder classes are responsible for determining the tenant ID based on an incoming HTTP request in a multi-tenant application.
  *
- * @package Ananiaslitz\Matrix\Tenant
+ * @package OpenCodeCo\Matrix\Tenant
  */
-namespace Ananiaslitz\Matrix\Tenant;
+namespace OpenCodeCo\Matrix\Tenant;
 
 use Psr\Http\Message\ServerRequestInterface;
 

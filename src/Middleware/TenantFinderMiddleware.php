@@ -5,18 +5,22 @@
  *
  * This middleware is responsible for locating the appropriate tenant based on the incoming HTTP request and setting the database connection for the current request to the corresponding tenant's connection.
  *
- * @package Ananiaslitz\Matrix\Middleware
+ * @package OpenCodeCo\Matrix\Middleware
  */
-namespace Ananiaslitz\Matrix\Middleware;
+namespace OpenCodeCo\Matrix\Middleware;
 
+use OpenCodeCo\Matrix\Exceptions\TenantNotFoundException;
 use Hyperf\Contract\ConfigInterface;
-use Ananiaslitz\Matrix\Tenant\DefaultTenantFinder;
-use Ananiaslitz\Matrix\Tenant\TenantFinderInterface;
+use OpenCodeCo\Matrix\Tenant\DefaultTenantFinder;
+use OpenCodeCo\Matrix\Tenant\TenantFinderInterface;
+use Hyperf\Contract\ContainerInterface;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Ananiaslitz\Matrix\Tenant\TenantManager;
+use OpenCodeCo\Matrix\Tenant\TenantManager;
 
 class TenantFinderMiddleware implements MiddlewareInterface
 {
@@ -28,7 +32,7 @@ class TenantFinderMiddleware implements MiddlewareInterface
      */
     public function __construct(
         private TenantManager $tenantManager,
-        private ConfigInterface $config
+        private ContainerInterface $container,
     ) {
     }
 
@@ -38,12 +42,14 @@ class TenantFinderMiddleware implements MiddlewareInterface
      * @param ServerRequestInterface $request The incoming HTTP request.
      * @param RequestHandlerInterface $handler The request handler.
      * @return ResponseInterface The response to the HTTP request.
+     * @throws TenantNotFoundException
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $finderClass = $this->config->get('matrix.tenant_finder', DefaultTenantFinder::class);
         /** @var TenantFinderInterface $finder */
-        $finder = \Hyperf\Support\make($finderClass);
+        $finder = $this->container->get(TenantFinderInterface::class);
 
         $tenantId = $finder->findTenantId($request);
         $this->tenantManager->setTenantConnection($tenantId);
