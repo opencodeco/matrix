@@ -21,20 +21,15 @@ php bin/hyperf.php matrix:publish
 This command copies necessary migration files to your project's `migrations` directory.
 
 ### Configuration
-1. Publish Configuration (Optional): If you want to customize the tenant identification logic or use a custom TenantFinder, publish the Matrix configuration file:
-```shell
-php bin/hyperf.php vendor:publish opencodeco/matrix
-```
-This will copy the default configuration file to `config/autoload/matrix.php`.
+To fully integrate Matrix into your Hyperf project, you must register the `MatrixConfigProvider`. This step is essential as it configures the library's commands, dependencies, migrations, and any other necessary setup:
 
-2. Define **Tenant Finder**: In `config/autoload/matrix.php`, specify your custom **TenantFinder** implementation if necessary:
+1. **Register the MatrixConfigProvider**: Add the `MatrixConfigProvider` to your project's configuration to load it automatically. This enables all features provided by Matrix, including dynamic tenant database connections and the command to publish migrations.
 
+In `config/autoload/dependencies.php`, add the following line:
 ```php
-return [
-    'tenant_finder' => App\Tenant\CustomTenantFinder::class,
-];
+\OpenCodeCo\Matrix\MatrixConfigProvider::class => \OpenCodeCo\Matrix\MatrixConfigProvider::class,
 ```
-3. **Middleware Registration**: Register the `TenantMiddleware` in your application's middleware stack, typically in `config/autoload/middlewares.php`:
+2. **Middleware Registration**: Register the `TenantMiddleware` in your application's middleware stack, typically in `config/autoload/middlewares.php`:
 
 ```php
 return [
