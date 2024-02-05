@@ -11,7 +11,7 @@ Matrix is a comprehensive multi-tenant library designed to seamlessly integrate 
 To install Matrix, run the following command in the root of your Hyperf project:
 
 ```shell
-composer require ananiaslitz/matrix
+composer require opencodeco/matrix
 ```
 After installation, you should publish the default migrations provided by Matrix:
 
@@ -23,7 +23,7 @@ This command copies necessary migration files to your project's `migrations` dir
 ### Configuration
 1. Publish Configuration (Optional): If you want to customize the tenant identification logic or use a custom TenantFinder, publish the Matrix configuration file:
 ```shell
-php bin/hyperf.php vendor:publish ananiaslitz/matrix
+php bin/hyperf.php vendor:publish opencodeco/matrix
 ```
 This will copy the default configuration file to `config/autoload/matrix.php`.
 
@@ -39,7 +39,7 @@ return [
 ```php
 return [
     'http' => [
-        \Ananiaslitz\Matrix\Http\Middleware\TenantMiddleware::class,
+        \OpenCodeCo\Matrix\Http\Middleware\TenantMiddleware::class,
     ],
 ];
 ```
@@ -51,7 +51,7 @@ Ensure that your tenant-specific models use the dynamic tenant connection, which
 namespace App\Model;
 
 use Hyperf\DbConnection\Model\Model;
-use Ananiaslitz\Matrix\Model\Traits\UsesTenantConnection;
+use OpenCodeCo\Matrix\Model\Traits\UsesTenantConnection;
 
 class YourTenantModel extends Model
 {
