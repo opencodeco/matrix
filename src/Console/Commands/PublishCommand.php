@@ -5,11 +5,12 @@
  *
  * This command allows users to publish the required configurations for the Matrix library. It copies migration files from the library to the user's project directory, enabling customization and usage.
  *
- * @package Ananiaslitz\Matrix\Console\Commands
+ * @package OpenCodeCo\Matrix\Console\Commands
  */
-namespace Ananiaslitz\Matrix\Console\Commands;
+namespace OpenCodeCo\Matrix\Console\Commands;
 
 use Hyperf\Command\Command as HyperfCommand;
+use Symfony\Component\Console\Input\InputOption;
 
 /**
  * @Command
@@ -47,8 +48,17 @@ class PublishCommand extends HyperfCommand
     protected function publishMigrations(): void
     {
         $projectRoot = $this->getProjectRootPath();
-        $migrationsSourcePath = $projectRoot . '/vendor/ananiaslitz/matrix/database/migrations/';
-        $migrationsDestinationPath = $projectRoot . '/migrations/';
+        $migrationsSourcePath = $projectRoot . '/vendor/opencodeco/matrix/database/migrations/';
+
+        $this->addOption(
+            'path',
+            null,
+            InputOption::VALUE_OPTIONAL,
+            'The path where migrations should be published to',
+            '/migrations/'
+        );
+
+        $migrationsDestinationPath = $projectRoot . $this->input->getOption('path');
 
         foreach (['warden', 'tenant'] as $type) {
             $sourcePath = $migrationsSourcePath . $type;
@@ -65,10 +75,15 @@ class PublishCommand extends HyperfCommand
 
             $files = scandir($sourcePath);
             foreach ($files as $file) {
-                if ($file === '.' || $file === '..') continue; // Ignora diretórios . e ..
+                if ($file === '.' || $file === '..') continue;
 
                 $srcFile = $sourcePath . '/' . $file;
                 $destFile = $destinationPath . '/' . $file;
+
+                if (!file_exists($srcFile)) {
+                    $this->output->writeln("<error>Source file $srcFile does not exist.</error>");
+                    continue;
+                }
 
                 if (!file_exists($destFile) || $this->input->getOption('force')) {
                     copy($srcFile, $destFile);
@@ -87,7 +102,7 @@ class PublishCommand extends HyperfCommand
      */
     protected function getProjectRootPath(): string
     {
-        return dirname(__DIR__, 4);
+        return defined('BASE_PATH') ? BASE_PATH : dirname(__DIR__, 4);
     }
 }
 
