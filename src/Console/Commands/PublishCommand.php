@@ -48,7 +48,9 @@ class PublishCommand extends HyperfCommand
     protected function publishMigrations(): void
     {
         $projectRoot = $this->getProjectRootPath();
-        $migrationsSourcePath = $projectRoot . '/vendor/opencodeco/matrix/database/migrations/';
+        $migrationsSourcePath = $projectRoot . '/vendor/opencodeco/matrix/src/database/migrations/';
+
+        error_log('Source path is: ' . $migrationsSourcePath);
 
         $this->addOption(
             'path',

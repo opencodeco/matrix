@@ -3,6 +3,10 @@
     "type": "library",
     "license": "MIT",
     "description": "A multi-tenant library for Hyperf APIs.",
+    "keywords": [
+        "multi-tenancy",
+        "saas"
+    ],
     "authors": [
         {
             "name": "Diego Ananias",
@@ -20,7 +24,6 @@
         "phpunit/phpunit": "^9.0",
         "hyperf/testing": "^3.0"
     },
-
     "autoload": {
         "psr-4": {
             "OpenCodeCo\\Matrix\\": "src/"
@@ -30,7 +33,11 @@
         "post-update-cmd": "php bin/hyperf.php matrix:publish",
         "post-install-cmd": "php bin/hyperf.php matrix:publish",
         "post-autoload-dump": [
-            "OpenCodeCo\\Matrix\\ComposerScripts::postAutoloadDump"
         ]
+    },
+    "extra": {
+        "hyperf": {
+            "config": "OpenCodeCo\\Matrix\\MatrixConfigProvider"
+        }
     }
 }

@@ -4,7 +4,7 @@ namespace OpenCodeCo\Matrix\Model\Traits;
 
 trait UsesWardenConnection
 {
-    protected string $connection;
+    protected ?string $connection;
 
     /**
      * Inicializa a conexão do model para a conexão "warden".
